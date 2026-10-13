@@ -8,15 +8,18 @@ const transactionRepository = new MockTransactionRepository();
 
 export type TransactionState = {
   transactions: Transaction[];
+  selectedTransaction: Transaction | null;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
   errorMessage: string | null;
   fetchTransactions: () => Promise<Transaction[]>;
+  selectTransaction: (transaction: Transaction) => void;
 };
 
 export const useTransactionStore = create<TransactionState>(set => ({
   transactions: [],
+  selectedTransaction: null,
   ...idleRequestState,
 
   fetchTransactions: async () => {
@@ -35,4 +38,6 @@ export const useTransactionStore = create<TransactionState>(set => ({
       throw error;
     }
   },
+
+  selectTransaction: transaction => set({ selectedTransaction: transaction }),
 }));
