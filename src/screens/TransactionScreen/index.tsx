@@ -109,7 +109,7 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
     [navigation, selectTransaction],
   );
 
-  if (transactions.length === 0) {
+  if (transactions.length === 0 && !isSuccess) {
     return (
       <Screen>
         {isError && !isLoading ? (
