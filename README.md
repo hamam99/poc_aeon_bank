@@ -353,29 +353,20 @@ the `react-native` export condition.
 
 ## Future improvements
 
+- **Implement other pages** liek page Transfer, page Pay Bills and Page Reload
+- **Dark mode and i18n.** The colour tokens live in `tailwind.config.js` and copy is
+  inline, so both are additive rather than structural changes.
 - **Real API layer.** `src/api` already isolates data access behind one class per entity,
   so replacing a `Mock*Repository` with an HTTP implementation of the same methods leaves
   the stores and screens untouched. Retries, auth headers and response validation belong
   there too.
-- **Money as minor units.** Amounts are `number` today, which is fine for a PoC but
-  should become integer cents before real balances are involved.
 - **Paginated history.** The list loads every transaction at once; a real account needs
   cursor pagination with `onEndReached` and a footer spinner.
 - **Group the list by date.** Month and day headers instead of a timestamp on every row.
 - **Auth and session handling.** There is no login, token storage, or 401 handling yet.
-- **Error boundary.** A top-level boundary so an unexpected render error cannot blank the
-  app.
-- **Accessibility sweep.** The share button on the detail screen is identified by its
-  visible text only; give every interactive element an explicit role and label and verify
-  the flows with a screen reader.
-- **Notification pattern.** Replace the toast calls with a single app-level notification
-  service once real failures need to be retried or logged.
-- **CI.** Run `tsc --noEmit`, ESLint, Prettier and Jest on every push.
 - **Wider test surface.** Move the component suites to
   `@testing-library/react-native` for user-centric queries, and cover the screens
   end-to-end with Maestro or Detox.
-- **Dark mode and i18n.** The colour tokens live in `tailwind.config.js` and copy is
-  inline, so both are additive rather than structural changes.
 
 ## Learn more
 
