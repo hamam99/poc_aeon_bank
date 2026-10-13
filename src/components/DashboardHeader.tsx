@@ -4,7 +4,7 @@ import { LogOut } from 'lucide-react-native';
 
 type DashboardHeaderProps = {
   greeting: string;
-  holderName: string;
+  holderName?: string;
   onSignOut?: () => void;
 };
 
