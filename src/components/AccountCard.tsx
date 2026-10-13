@@ -1,10 +1,9 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Icon } from './Icon';
 import type { AccountSummary } from '../types/dashboard';
 import { CurrencyFormatter } from '../utils/CurrencyFormatter';
 import dayjs from 'dayjs';
-import { EyeClosed, EyeIcon } from 'lucide-react-native';
+import { ChevronRight, EyeClosed, EyeIcon } from 'lucide-react-native';
 
 type AccountCardProps = {
   account: AccountSummary;
@@ -69,7 +68,7 @@ export function AccountCard({
           onPress={onOpenAccount}
           className="mt-8 h-11 w-11 items-center justify-center rounded-full bg-white/25"
         >
-          <Icon name="chevronRight" className="text-2xl text-white" />
+          <ChevronRight size={24} color={'white'} />
         </TouchableOpacity>
       </View>
 

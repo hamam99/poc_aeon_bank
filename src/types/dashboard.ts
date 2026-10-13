@@ -1,5 +1,3 @@
-import type { IconName } from '../components/Icon';
-
 export type AccountSummary = {
   accountNumber: string;
   holderName: string;
@@ -9,7 +7,7 @@ export type AccountSummary = {
 export type QuickAction = {
   id: string;
   label: string;
-  icon: IconName;
+  iconNode?: React.ReactNode;
 };
 
 export type Promo = {

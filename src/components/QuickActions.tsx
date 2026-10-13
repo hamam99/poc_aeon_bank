@@ -1,6 +1,5 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Icon } from './Icon';
 import type { QuickAction } from '../types/dashboard';
 import { SectionHeading } from './SectionHeading';
 
@@ -31,7 +30,7 @@ export function QuickActions({
               }}
               className="items-center"
             >
-              <Icon name={action.icon} className="text-3xl" />
+              {action.iconNode}
               <Text className="mt-2 text-center text-[11px] leading-4 text-slate-800">
                 {action.label}
               </Text>
