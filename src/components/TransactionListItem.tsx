@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-react-native';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import type { Transaction } from '../types/transaction';
 import { formatCurrency } from '../utils/formatCurrency';
@@ -9,14 +9,27 @@ import { COLORS } from '../theme/colors';
 
 type TransactionListItemProps = {
   transaction: Transaction;
+  onPress: (transaction: Transaction) => void;
 };
 
-export function TransactionListItem({ transaction }: TransactionListItemProps) {
+export function TransactionListItem({
+  transaction,
+  onPress,
+}: TransactionListItemProps) {
   const isIncoming = getTransactionDirection(transaction) === 'incoming';
   const DirectionIcon = isIncoming ? ArrowDownLeft : ArrowUpRight;
 
   return (
-    <View className="flex-row items-center rounded-2xl bg-white p-4">
+    <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={`${transaction.title}, ${formatCurrency(
+        transaction.amount,
+        true,
+      )}`}
+      onPress={() => onPress(transaction)}
+      activeOpacity={0.7}
+      className="flex-row items-center rounded-2xl bg-white p-4"
+    >
       <View
         className={`h-11 w-11 items-center justify-center rounded-full ${
           isIncoming ? 'bg-emerald-50' : 'bg-rose-50'
@@ -54,6 +67,6 @@ export function TransactionListItem({ transaction }: TransactionListItemProps) {
           {dayjs(transaction.date).format('DD MMM YYYY, HH:mm')}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

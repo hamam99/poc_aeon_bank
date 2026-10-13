@@ -4,4 +4,5 @@ import ScreenName from './ScreenName';
 export type RootStackParamList = {
   [ScreenName.DashboardScreen]: undefined;
   [ScreenName.TransactionScreen]: undefined;
+  [ScreenName.TransactionDetailScreen]: undefined;
 };
