@@ -3,7 +3,7 @@ import {
   filterTransactions,
   getTransactionDirection,
   sortTransactionsByDateDesc,
-} from '../utils/transactions';
+} from '../utils/TransactionUtil';
 
 const buildTransaction = (
   overrides: Partial<Transaction> & Pick<Transaction, 'id' | 'amount'>,

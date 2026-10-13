@@ -13,7 +13,7 @@ import type { RootStackParamList } from '../../navigation/types';
 import { useTransactionStore } from '../../store/useTransactionStore';
 import { COLORS } from '../../theme/colors';
 import { formatCurrency } from '../../utils/formatCurrency';
-import { getTransactionDirection } from '../../utils/transactions';
+import { getTransactionDirection } from '../../utils/TransactionUtil';
 import shareReceipt from '../../utils/ShareReceipt';
 
 type TransactionDetailScreenProps = NativeStackScreenProps<

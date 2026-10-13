@@ -25,7 +25,7 @@ import type {
 import {
   filterTransactions,
   sortTransactionsByDateDesc,
-} from '../../utils/transactions';
+} from '../../utils/TransactionUtil';
 
 type TransactionScreenProps = NativeStackScreenProps<
   RootStackParamList,

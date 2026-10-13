@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import type { Transaction } from '../types/transaction';
 import { formatCurrency } from '../utils/formatCurrency';
-import { getTransactionDirection } from '../utils/transactions';
+import { getTransactionDirection } from '../utils/TransactionUtil';
 import { COLORS } from '../theme/colors';
 
 type TransactionListItemProps = {
