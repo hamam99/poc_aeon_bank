@@ -77,71 +77,76 @@ Before pushing, the three gates are `tsc --noEmit`, `bun run lint` and `bun run 
 ## Project structure
 
 ```text
-├── App.tsx                     Root component: providers + navigation container
-├── global.css                  Tailwind entry point compiled by NativeWind
-├── tailwind.config.js          Tailwind content globs, design tokens + NativeWind preset
-├── nativewind-env.d.ts         NativeWind and CSS ambient type declarations
-├── index.js                    React Native entry point
-├── jest.config.js              Jest preset, CSS stub, transforms
-├── screenshot/                 Screenshots used by this README
+├── App.tsx                         Root component: providers + navigation container
+├── index.js                        React Native entry point
+├── global.css                      Tailwind entry point compiled by NativeWind
+├── app.json                        App name and display config
+├── babel.config.js                 React Native preset + the NativeWind transform
+├── metro.config.js                 Metro wrapped with withNativeWind
+├── tailwind.config.js              Content globs, design tokens, NativeWind preset
+├── nativewind-env.d.ts             NativeWind and CSS ambient type declarations
+├── jest.config.js                  Jest preset, CSS stub, transforms
+├── .eslintrc.js                    ESLint, extending @react-native
+├── .prettierrc.js                  Prettier formatting rules
+├── .prettierignore                 Keeps vendored native output out of formatting
+├── screenshot/                     Screenshots used by this README
 └── src
-    ├── __mocks__/styleMock.js  Stubs the CSS import for Jest
-    ├── __tests__/              Unit tests
-    │   ├── formatCurrency.test.ts
+    ├── __mocks__/styleMock.js      Stubs the CSS import for Jest
+    ├── __tests__/                  Unit tests
+    │   ├── CurrencyFormatter.test.ts
     │   ├── shareReceipt.test.ts
     │   ├── TransactionDetailScreen.test.tsx
     │   ├── TransactionListItem.test.tsx
     │   ├── transactions.test.ts
     │   ├── useDashboardStore.test.ts
     │   └── useTransactionStore.test.ts
-    ├── api/                    Data access: one repository per entity
+    ├── api/                        Data access: one repository per entity
     │   ├── MockPromoRepository.ts
     │   ├── MockTransactionRepository.ts
     │   ├── MockUserRepository.ts
-    │   └── simulateRequest.ts  Mocks network latency
-    ├── components/             Reusable, presentation-only components
+    │   └── simulateRequest.ts      Mocks network latency
+    ├── components/                 Reusable, presentation-only components
     │   ├── AccountCard.tsx
     │   ├── DashboardHeader.tsx
-    │   ├── DetailRow.tsx       Label/value pair inside a detail card
-    │   ├── EmptyState.tsx      "Nothing here" placeholder
-    │   ├── ErrorState.tsx      Failure message + retry
-    │   ├── FilterChips.tsx     Generic single-select chip row
-    │   ├── Icon.tsx
+    │   ├── DetailRow.tsx           Label/value pair inside a detail card
+    │   ├── EmptyState.tsx          "Nothing here" placeholder
+    │   ├── ErrorState.tsx          Failure message + retry
+    │   ├── FilterChips.tsx         Generic single-select chip row
     │   ├── LoadingState.tsx
     │   ├── PromoSection.tsx
-    │   ├── PullToRefresh.tsx   Shared RefreshControl factory
+    │   ├── PullToRefresh.tsx       Shared RefreshControl factory
     │   ├── QuickActions.tsx
-    │   ├── Screen.tsx          Safe-area aware screen container
-    │   ├── ScreenHeader.tsx    Back button + screen title
-    │   ├── SearchField.tsx     Text input with search icon and clear button
+    │   ├── Screen.tsx              Safe-area aware screen container
+    │   ├── ScreenHeader.tsx        Back button + screen title
+    │   ├── SearchField.tsx         Text input with search icon, clear button
     │   ├── SectionHeading.tsx
     │   └── TransactionListItem.tsx
-    ├── navigation/             Navigator, route names and typed route params
+    ├── navigation/                 Navigator, route names and typed route params
     │   ├── RootNavigator.tsx
     │   ├── ScreenName.tsx
     │   └── types.ts
     ├── screens/
-    │   ├── DashboardScreen/    Screen composition + screen-only data
-    │   │   ├── data.ts
+    │   ├── DashboardScreen/        Screen composition + screen-only data
+    │   │   ├── data.tsx            Quick actions paired with their lucide icons
     │   │   └── index.tsx
     │   ├── TransactionDetailScreen/
     │   │   └── index.tsx
     │   └── TransactionScreen/
     │       └── index.tsx
-    ├── store/                  Zustand stores
-    │   ├── requestState.ts     Shared request-lifecycle defaults
+    ├── store/                      Zustand stores
+    │   ├── requestState.ts         Shared request-lifecycle defaults
     │   ├── useDashboardStore.tsx
     │   └── useTransactionStore.tsx
     ├── theme/
-    │   └── colors.tsx          Raw values for native-only APIs
-    ├── types/                  Domain models
+    │   └── colors.tsx              Raw values for native-only APIs
+    ├── types/                      Domain models
     │   ├── dashboard.ts
     │   └── transaction.ts
-    └── utils/                  Shared helpers
-        ├── ShowToast.tsx
-        ├── ShareReceipt.ts     Wraps Share.share() and reports the outcome
-        ├── formatCurrency.ts
-        └── transactions.ts     Pure search / filter / sort logic
+    └── utils/                      Shared helpers
+        ├── CurrencyFormatter.ts    Formats amounts for display
+        ├── ShareReceipt.ts         Wraps Share.share(), reports the outcome
+        ├── ShowToast.ts            Thin wrapper over react-native-toast-message
+        └── TransactionUtil.ts      Pure search / filter / sort logic
 ```
 
 ## How the libraries are wired
@@ -213,7 +218,7 @@ transaction list, attach the same control to the `FlatList` instead.
 ### Transactions
 
 `src/screens/TransactionScreen` renders the list, but it holds none of the logic.
-Searching, filtering and ordering are pure functions in `src/utils/transactions.ts`,
+Searching, filtering and ordering are pure functions in `src/utils/TransactionUtil.ts`,
 so they are unit-testable without rendering anything:
 
 ```ts
@@ -292,10 +297,10 @@ what allows components to use the `className` prop. Three files make that work:
   Reanimated/Worklets transform used by `react-native-reanimated`
 - `metro.config.js` — wraps the default Metro config with `withNativeWind`
 
-Icons come from `lucide-react-native` (drawn with `react-native-svg`) everywhere except
-the dashboard's quick-action grid and account card, which still use the emoji map in
-`src/components/Icon.tsx`. That map is the single place to change if the grid should
-move to vector icons too.
+Icons come from `lucide-react-native` (drawn with `react-native-svg`). The dashboard's
+quick actions pair each action with its icon element in
+`src/screens/DashboardScreen/data.tsx`, so the icon sits next to the action it
+describes rather than in a separate lookup map.
 
 ## Conventions
 
@@ -327,8 +332,8 @@ bun run test
 - `src/__tests__/transactions.test.ts` — direction detection, case-insensitive search
   across title and description, direction filtering, newest-first ordering and the fact
   that the helpers never mutate their input
-- `src/__tests__/formatCurrency.test.ts` — sign handling, thousands grouping and the zero
-  boundary
+- `src/__tests__/CurrencyFormatter.test.ts` — sign handling, thousands grouping and the
+  zero boundary
 - `src/__tests__/shareReceipt.test.ts` — the shared, dismissed and failed outcomes
 - `src/__tests__/useDashboardStore.test.ts` and
   `src/__tests__/useTransactionStore.test.ts` — the fetch lifecycle (loading flag,
@@ -369,8 +374,6 @@ the `react-native` export condition.
 - **Wider test surface.** Move the component suites to
   `@testing-library/react-native` for user-centric queries, and cover the screens
   end-to-end with Maestro or Detox.
-- **Single icon source.** Fold the emoji map in `src/components/Icon.tsx` into
-  `lucide-react-native` so icons are consistent across the app.
 - **Dark mode and i18n.** The colour tokens live in `tailwind.config.js` and copy is
   inline, so both are additive rather than structural changes.
 
