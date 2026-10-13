@@ -5,13 +5,13 @@ import { LogOut } from 'lucide-react-native';
 type DashboardHeaderProps = {
   greeting: string;
   holderName?: string;
-  onSignOut?: () => void;
+  onSignOut: () => void;
 };
 
 export function DashboardHeader({
   greeting,
   holderName,
-  onSignOut,
+  onSignOut = () => {},
 }: DashboardHeaderProps) {
   return (
     <View className="flex-row items-start justify-between">
