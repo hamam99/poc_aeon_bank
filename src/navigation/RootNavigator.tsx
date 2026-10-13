@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import type { RootStackParamList } from './types';
 import DashboardScreen from '../screens/DashboardScreen';
+import TransactionScreen from '../screens/TransactionScreen';
 import ScreenName from './ScreenName';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -14,6 +15,13 @@ export function RootNavigator() {
         <Stack.Screen
           name={ScreenName.DashboardScreen}
           component={DashboardScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={ScreenName.TransactionScreen}
+          component={TransactionScreen}
           options={{
             headerShown: false,
           }}
