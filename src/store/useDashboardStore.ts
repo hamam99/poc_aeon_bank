@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { MockPromoRepository } from '../api/MockPromoRepository';
 import { MockUserRepository } from '../api/MockUserRepository';
 import type { AccountSummary, Promo } from '../types/dashboard';
+import { getErrorMessage, idleRequestState } from './requestState';
 
 const userRepository = new MockUserRepository();
 const promoRepository = new MockPromoRepository();
@@ -19,16 +20,6 @@ export type DashboardState = {
   fetchUser: () => Promise<AccountSummary>;
   fetchPromos: () => Promise<Promo[]>;
 };
-
-const idleRequestState = {
-  isLoading: false,
-  isError: false,
-  isSuccess: false,
-  errorMessage: null,
-};
-
-const getErrorMessage = (error: unknown) =>
-  error instanceof Error ? error.message : 'Something went wrong';
 
 export const useDashboardStore = create<DashboardState>(set => ({
   accountSummary: null,
