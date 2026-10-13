@@ -6,5 +6,5 @@ export const formatCurrency = (amount: number, withSign = false): string => {
     maximumFractionDigits: 2,
   }).format(absoluteAmount);
 
-  return `${withSign ? sign : ''} RM ${formattedAmount}`;
+  return `${withSign ? `${sign} ` : ''}RM ${formattedAmount}`;
 };

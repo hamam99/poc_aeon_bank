@@ -45,6 +45,12 @@ describe('getTransactionDirection', () => {
       getTransactionDirection(buildTransaction({ id: 'b', amount: -10 })),
     ).toBe('outgoing');
   });
+
+  it('treats a zero amount as incoming, matching formatCurrency', () => {
+    expect(
+      getTransactionDirection(buildTransaction({ id: 'a', amount: 0 })),
+    ).toBe('incoming');
+  });
 });
 
 describe('filterTransactions', () => {
