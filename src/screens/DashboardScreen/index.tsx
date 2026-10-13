@@ -8,6 +8,7 @@ import { QuickActions } from '../../components/QuickActions';
 import { QUICK_ACTIONS } from './data';
 import { useDashboardStore } from '../../store/useDashboardStore';
 import showToast from '../../utils/ShowToast';
+import { QuickAction } from '../../types/dashboard';
 
 const DashboardScreen = () => {
   const { isBalanceHidden, toggleBalanceVisibility, accountSummary, promos } =
@@ -19,6 +20,15 @@ const DashboardScreen = () => {
 
   const onOpenAccount = () => {
     showToast({ message: 'Features are in progress' });
+  };
+
+  const onSelectAction = (action: QuickAction) => {
+    if (action.id !== 'transaction') {
+      showToast({ message: 'Features are in progress' });
+      return;
+    }
+
+    showToast({ message: 'navigate to transaction list' });
   };
 
   return (
@@ -39,7 +49,7 @@ const DashboardScreen = () => {
       </View>
 
       <View className="mt-6">
-        <QuickActions actions={QUICK_ACTIONS} />
+        <QuickActions actions={QUICK_ACTIONS} onSelectAction={onSelectAction} />
       </View>
 
       <View className="mt-8">
