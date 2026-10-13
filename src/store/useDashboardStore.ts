@@ -1,38 +1,75 @@
 import { create } from 'zustand';
-import { AccountSummary, Promo } from '../types/dashboard';
 
-const MOCK_ACCOUNT: AccountSummary = {
-  accountNumber: '0460059173',
-  holderName: 'Hamam Nasrodin',
-  balance: 12480.55,
-};
+import { MockPromoRepository } from '../api/MockPromoRepository';
+import { MockUserRepository } from '../api/MockUserRepository';
+import type { AccountSummary, Promo } from '../types/dashboard';
 
-const MOCK_PROMOS: Promo[] = [
-  {
-    id: '1',
-    title: 'Cashback eWallet',
-    description:
-      'Topup and you will get cashback up to RM 10 for every transaction.',
-  },
-  {
-    id: '2',
-    title: 'Gold Financing',
-    description:
-      'Get gold financing without processing fees throughout this month.',
-  },
-];
+const userRepository = new MockUserRepository();
+const promoRepository = new MockPromoRepository();
 
 export type DashboardState = {
-  accountSummary: AccountSummary;
-  isBalanceHidden: boolean;
-  toggleBalanceVisibility: () => void;
+  accountSummary: AccountSummary | null;
   promos: Promo[];
+  isBalanceHidden: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  errorMessage: string | null;
+  toggleBalanceVisibility: () => void;
+  fetchUser: () => Promise<AccountSummary>;
+  fetchPromos: () => Promise<Promo[]>;
 };
 
+const idleRequestState = {
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  errorMessage: null,
+};
+
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : 'Something went wrong';
+
 export const useDashboardStore = create<DashboardState>(set => ({
-  accountSummary: MOCK_ACCOUNT,
+  accountSummary: null,
+  promos: [],
   isBalanceHidden: true,
+  ...idleRequestState,
+
   toggleBalanceVisibility: () =>
     set(state => ({ isBalanceHidden: !state.isBalanceHidden })),
-  promos: MOCK_PROMOS,
+
+  fetchUser: async () => {
+    set({ ...idleRequestState, isLoading: true });
+
+    try {
+      const accountSummary = await userRepository.getUser();
+      set({ accountSummary, isLoading: false, isSuccess: true });
+      return accountSummary;
+    } catch (error) {
+      set({
+        isLoading: false,
+        isError: true,
+        errorMessage: getErrorMessage(error),
+      });
+      throw error;
+    }
+  },
+
+  fetchPromos: async () => {
+    set({ ...idleRequestState, isLoading: true });
+
+    try {
+      const promos = await promoRepository.getPromos();
+      set({ promos, isLoading: false, isSuccess: true });
+      return promos;
+    } catch (error) {
+      set({
+        isLoading: false,
+        isError: true,
+        errorMessage: getErrorMessage(error),
+      });
+      throw error;
+    }
+  },
 }));
