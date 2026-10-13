@@ -18,7 +18,10 @@ import { TransactionListItem } from '../../components/TransactionListItem';
 import ScreenName from '../../navigation/ScreenName';
 import type { RootStackParamList } from '../../navigation/types';
 import { useTransactionStore } from '../../store/useTransactionStore';
-import type { TransactionDirectionFilter } from '../../types/transaction';
+import type {
+  Transaction,
+  TransactionDirectionFilter,
+} from '../../types/transaction';
 import {
   filterTransactions,
   sortTransactionsByDateDesc,
@@ -40,9 +43,9 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
     transactions,
     isLoading,
     isError,
-    isSuccess,
     errorMessage,
     fetchTransactions,
+    selectTransaction,
   } = useTransactionStore(state => state);
 
   const [search, setSearch] = useState('');
@@ -98,6 +101,14 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
     );
   }, [FilterChip, SearchInput, navigation.goBack]);
 
+  const openTransactionDetail = useCallback(
+    (transaction: Transaction) => {
+      selectTransaction(transaction);
+      navigation.navigate(ScreenName.TransactionDetailScreen);
+    },
+    [navigation, selectTransaction],
+  );
+
   if (transactions.length === 0) {
     return (
       <Screen>
@@ -115,7 +126,12 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
       <FlatList
         data={visibleTransactions}
         keyExtractor={transaction => transaction.id}
-        renderItem={({ item }) => <TransactionListItem transaction={item} />}
+        renderItem={({ item }) => (
+          <TransactionListItem
+            transaction={item}
+            onPress={openTransactionDetail}
+          />
+        )}
         className="flex-1"
         contentContainerClassName="gap-3 pb-8"
         keyboardShouldPersistTaps="handled"
