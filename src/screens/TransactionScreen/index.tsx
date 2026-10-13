@@ -26,6 +26,7 @@ import {
   filterTransactions,
   sortTransactionsByDateDesc,
 } from '../../utils/TransactionUtil';
+import { COLORS } from '../../theme/colors';
 
 type TransactionScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -44,6 +45,7 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
     isLoading,
     isError,
     errorMessage,
+    isSuccess,
     fetchTransactions,
     selectTransaction,
   } = useTransactionStore(state => state);
@@ -140,7 +142,7 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
         ListHeaderComponent={Header}
         ListEmptyComponent={
           <EmptyState
-            icon={<SearchX size={32} color="#94A3B8" />}
+            icon={<SearchX size={32} color={COLORS.placeholder} />}
             title="No transactions found"
             description="Try a different keyword or switch the filter."
           />

@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { CircleAlert, RefreshCw } from 'lucide-react-native';
+import { COLORS } from '../theme/colors';
 
 type ErrorStateProps = {
   message?: string | null;
@@ -10,7 +11,7 @@ type ErrorStateProps = {
 export const ErrorState = ({ message, onRetry }: ErrorStateProps) => {
   return (
     <View className="flex-1 items-center justify-center px-6">
-      <CircleAlert size={32} color="#EF4444" />
+      <CircleAlert size={32} color={COLORS.danger} />
       <Text className="mt-4 text-center text-base font-semibold text-slate-900">
         Something went wrong
       </Text>

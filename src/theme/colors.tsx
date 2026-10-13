@@ -6,5 +6,6 @@ export const COLORS = {
   arrow: '#0F172A',
   incoming: '#059669',
   outgoing: '#E11D48',
+  danger: '#EF4444',
   placeholder: '#94A3B8',
 };
