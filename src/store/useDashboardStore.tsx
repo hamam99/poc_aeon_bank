@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { MockPromoRepository } from '../api/MockPromoRepository';
 import { MockUserRepository } from '../api/MockUserRepository';
-import type { AccountSummary, Promo } from '../types/dashboard';
+import type { AccountSummary, Promo } from '../types/dashboard.ts';
 import { getErrorMessage, idleRequestState } from './requestState';
 
 const userRepository = new MockUserRepository();
