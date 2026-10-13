@@ -79,7 +79,7 @@ const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
   return (
     <Screen scrollable refreshing={isLoading} onRefresh={refreshDashboard}>
       <DashboardHeader
-        greeting="Assalamu'alaikum"
+        greeting="Welcome"
         holderName={accountSummary.holderName}
         onSignOut={onSignOut}
       />
