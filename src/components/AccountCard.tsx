@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from './Icon';
 import type { AccountSummary } from '../types/dashboard';
-import { formatCurrency } from '../utils/formatCurrency';
+import { CurrencyFormatter } from '../utils/CurrencyFormatter';
 import dayjs from 'dayjs';
 import { EyeClosed, EyeIcon } from 'lucide-react-native';
 
@@ -57,7 +57,9 @@ export function AccountCard({
               isBalanceHidden ? 'tracking-[6px]' : ''
             }`}
           >
-            {isBalanceHidden ? HIDDEN_BALANCE : formatCurrency(account.balance)}
+            {isBalanceHidden
+              ? HIDDEN_BALANCE
+              : CurrencyFormatter(account.balance)}
           </Text>
         </View>
 

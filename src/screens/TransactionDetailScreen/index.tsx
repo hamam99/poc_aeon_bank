@@ -12,7 +12,7 @@ import ScreenName from '../../navigation/ScreenName';
 import type { RootStackParamList } from '../../navigation/types';
 import { useTransactionStore } from '../../store/useTransactionStore';
 import { COLORS } from '../../theme/colors';
-import { formatCurrency } from '../../utils/formatCurrency';
+import { CurrencyFormatter } from '../../utils/CurrencyFormatter';
 import { getTransactionDirection } from '../../utils/TransactionUtil';
 import shareReceipt from '../../utils/ShareReceipt';
 
@@ -55,7 +55,7 @@ const TransactionDetailScreen = ({
       `Transaction ID: ${selectedTransaction.id}`,
       `Title: ${selectedTransaction.title}`,
       `Type : ${isIncoming ? 'Incoming' : 'Outgoing'}`,
-      `Amount: ${formatCurrency(selectedTransaction.amount, true)}`,
+      `Amount: ${CurrencyFormatter(selectedTransaction.amount, true)}`,
       `Date: ${dayjs(selectedTransaction.date).format('DD MMM YYYY, HH:mm')}`,
       `Description: ${selectedTransaction.description ?? 'No description'}`,
     ].join('\n');
@@ -83,7 +83,7 @@ const TransactionDetailScreen = ({
         </Text>
 
         <Text className={`mt-1 text-3xl font-bold ${amountClassName}`}>
-          {formatCurrency(selectedTransaction.amount, true)}
+          {CurrencyFormatter(selectedTransaction.amount, true)}
         </Text>
 
         <Text className="mt-1 text-sm text-slate-500">

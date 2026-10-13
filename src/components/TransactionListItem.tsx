@@ -3,7 +3,7 @@ import { ArrowDownLeft, ArrowUpRight } from 'lucide-react-native';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import type { Transaction } from '../types/transaction';
-import { formatCurrency } from '../utils/formatCurrency';
+import { CurrencyFormatter } from '../utils/CurrencyFormatter';
 import { getTransactionDirection } from '../utils/TransactionUtil';
 import { COLORS } from '../theme/colors';
 
@@ -22,7 +22,7 @@ export function TransactionListItem({
   return (
     <TouchableOpacity
       accessibilityRole="button"
-      accessibilityLabel={`${transaction.title}, ${formatCurrency(
+      accessibilityLabel={`${transaction.title}, ${CurrencyFormatter(
         transaction.amount,
         true,
       )}`}
@@ -61,7 +61,7 @@ export function TransactionListItem({
             isIncoming ? 'text-emerald-600' : 'text-rose-600'
           }`}
         >
-          {formatCurrency(transaction.amount, true)}
+          {CurrencyFormatter(transaction.amount, true)}
         </Text>
         <Text className="mt-0.5 text-xs text-slate-400">
           {dayjs(transaction.date).format('DD MMM YYYY, HH:mm')}
