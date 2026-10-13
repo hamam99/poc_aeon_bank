@@ -353,16 +353,15 @@ the `react-native` export condition.
 
 ## Future improvements
 
-- **Implement other pages** liek page Transfer, page Pay Bills and Page Reload
-- **Dark mode and i18n.** The colour tokens live in `tailwind.config.js` and copy is
-  inline, so both are additive rather than structural changes.
+- **Implement other pages** like page Transfer, page Pay Bills and Page Reload
+- **Dark mode and i18n.**
+- **Group the list by date.** Month and day headers instead of a timestamp on every row.
 - **Real API layer.** `src/api` already isolates data access behind one class per entity,
   so replacing a `Mock*Repository` with an HTTP implementation of the same methods leaves
   the stores and screens untouched. Retries, auth headers and response validation belong
   there too.
 - **Paginated history.** The list loads every transaction at once; a real account needs
   cursor pagination with `onEndReached` and a footer spinner.
-- **Group the list by date.** Month and day headers instead of a timestamp on every row.
 - **Auth and session handling.** There is no login, token storage, or 401 handling yet.
 - **Wider test surface.** Move the component suites to
   `@testing-library/react-native` for user-centric queries, and cover the screens
