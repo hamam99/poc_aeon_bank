@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { EyeClosed, EyeIcon } from 'lucide-react-native';
 
 type AccountCardProps = {
-  account?: AccountSummary | null;
+  account: AccountSummary;
   isBalanceHidden: boolean;
   onToggleBalanceVisibility: () => void;
   onOpenAccount?: () => void;
@@ -30,7 +30,7 @@ export function AccountCard({
       <View className="flex-row justify-between">
         <View className="flex-1 pr-4">
           <Text className="text-xs text-white/90">
-            {account?.accountNumber} – {account?.holderName.toUpperCase()}
+            {account.accountNumber} – {account.holderName.toUpperCase()}
           </Text>
 
           <View className="mt-4 flex-row items-center">
@@ -57,9 +57,7 @@ export function AccountCard({
               isBalanceHidden ? 'tracking-[6px]' : ''
             }`}
           >
-            {isBalanceHidden
-              ? HIDDEN_BALANCE
-              : formatCurrency(account?.balance || 0)}
+            {isBalanceHidden ? HIDDEN_BALANCE : formatCurrency(account.balance)}
           </Text>
         </View>
 
