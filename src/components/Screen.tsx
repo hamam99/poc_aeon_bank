@@ -1,6 +1,8 @@
 import type { PropsWithChildren } from 'react';
-import { RefreshControl, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { PullToRefresh } from './PullToRefresh';
 
 type ScreenProps = PropsWithChildren<{
   className?: string;
@@ -10,7 +12,6 @@ type ScreenProps = PropsWithChildren<{
 }>;
 
 const HORIZONTAL_PADDING = 20;
-const BRAND_COLOR = '#0091EA';
 
 export function Screen({
   children,
@@ -33,14 +34,7 @@ export function Screen({
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          onRefresh ? (
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={BRAND_COLOR}
-              colors={[BRAND_COLOR]}
-            />
-          ) : undefined
+          onRefresh ? PullToRefresh(refreshing, onRefresh) : undefined
         }
       >
         {children}
