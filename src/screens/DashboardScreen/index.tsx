@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 
 import { AccountCard } from '../../components/AccountCard';
@@ -8,12 +9,19 @@ import { LoadingState } from '../../components/LoadingState';
 import { PromoSection } from '../../components/PromoSection';
 import { QuickActions } from '../../components/QuickActions';
 import { Screen } from '../../components/Screen';
+import ScreenName from '../../navigation/ScreenName';
+import type { RootStackParamList } from '../../navigation/types';
 import { useDashboardStore } from '../../store/useDashboardStore';
-import type { QuickAction } from '../../types/dashboard';
+import type { QuickAction } from '../../types/dashboard.ts';
 import showToast from '../../utils/ShowToast';
 import { QUICK_ACTIONS } from './data';
 
-const DashboardScreen = () => {
+type DashboardScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  typeof ScreenName.DashboardScreen
+>;
+
+const DashboardScreen = ({ navigation }: DashboardScreenProps) => {
   const {
     accountSummary,
     promos,
@@ -49,7 +57,7 @@ const DashboardScreen = () => {
       return;
     }
 
-    showToast({ message: 'navigate to transaction list' });
+    navigation.navigate(ScreenName.TransactionScreen);
   };
 
   if (!accountSummary) {
