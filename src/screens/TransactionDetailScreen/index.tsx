@@ -1,7 +1,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import dayjs from 'dayjs';
 import { ArrowDownLeft, ArrowUpRight } from 'lucide-react-native';
-import { Share, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { DetailRow } from '../../components/DetailRow';
 import { EmptyState } from '../../components/EmptyState';
@@ -14,6 +14,7 @@ import { useTransactionStore } from '../../store/useTransactionStore';
 import { COLORS } from '../../theme/colors';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { getTransactionDirection } from '../../utils/transactions';
+import shareReceipt from '../../utils/ShareReceipt';
 
 type TransactionDetailScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -48,21 +49,18 @@ const TransactionDetailScreen = ({
   const DirectionIcon = isIncoming ? ArrowDownLeft : ArrowUpRight;
   const amountClassName = isIncoming ? 'text-emerald-600' : 'text-rose-600';
 
-  const onShareReceipt = async () => {
-    const content = `Receipt\n\nTransaction ID: ${
-      selectedTransaction.id
-    }\nTitle: ${selectedTransaction.title}\nAmount: ${formatCurrency(
-      selectedTransaction.amount,
-      true,
-    )}\nDate: ${dayjs(selectedTransaction.date).format(
-      'DD MMM YYYY, HH:mm',
-    )}\nDescription: ${
-      selectedTransaction.description ?? 'No description provided'
-    }`;
+  const onShareReceipt = () => {
+    const content = [
+      'Receipt',
+      `Transaction ID: ${selectedTransaction.id}`,
+      `Title: ${selectedTransaction.title}`,
+      `Type : ${isIncoming ? 'Incoming' : 'Outgoing'}`,
+      `Amount: ${formatCurrency(selectedTransaction.amount, true)}`,
+      `Date: ${dayjs(selectedTransaction.date).format('DD MMM YYYY, HH:mm')}`,
+      `Description: ${selectedTransaction.description ?? 'No description'}`,
+    ].join('\n');
 
-    Share.share({
-      message: content,
-    });
+    shareReceipt(content);
   };
   return (
     <Screen scrollable>
