@@ -1,5 +1,5 @@
-import { MockUserRepository } from '../src/api/MockUserRepository';
-import { useDashboardStore } from '../src/store/useDashboardStore';
+import { MockUserRepository } from '../api/MockUserRepository';
+import { useDashboardStore } from '../store/useDashboardStore';
 
 const resetStore = () =>
   useDashboardStore.setState({

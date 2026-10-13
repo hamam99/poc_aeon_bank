@@ -1,9 +1,9 @@
-import type { Transaction } from '../src/types/transaction';
+import type { Transaction } from '../types/transaction';
 import {
   filterTransactions,
   getTransactionDirection,
   sortTransactionsByDateDesc,
-} from '../src/utils/transactions';
+} from '../utils/transactions';
 
 const buildTransaction = (
   overrides: Partial<Transaction> & Pick<Transaction, 'id' | 'amount'>,

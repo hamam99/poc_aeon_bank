@@ -1,9 +1,9 @@
 import { Share } from 'react-native';
 
-import shareReceipt from '../src/utils/ShareReceipt';
-import showToast from '../src/utils/ShowToast';
+import shareReceipt from '../utils/ShareReceipt';
+import showToast from '../utils/ShowToast';
 
-jest.mock('../src/utils/ShowToast', () => ({
+jest.mock('../utils/ShowToast', () => ({
   __esModule: true,
   default: jest.fn(),
 }));

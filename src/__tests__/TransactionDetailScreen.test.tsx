@@ -3,14 +3,14 @@ import { act, create, type ReactTestRenderer } from 'react-test-renderer';
 import { Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import ScreenName from '../src/navigation/ScreenName';
-import type { RootStackParamList } from '../src/navigation/types';
-import TransactionDetailScreen from '../src/screens/TransactionDetailScreen';
-import { useTransactionStore } from '../src/store/useTransactionStore';
-import type { Transaction } from '../src/types/transaction';
-import shareReceipt from '../src/utils/ShareReceipt';
+import ScreenName from '../navigation/ScreenName';
+import type { RootStackParamList } from '../navigation/types';
+import TransactionDetailScreen from '../screens/TransactionDetailScreen';
+import { useTransactionStore } from '../store/useTransactionStore';
+import type { Transaction } from '../types/transaction';
+import shareReceipt from '../utils/ShareReceipt';
 
-jest.mock('../src/utils/ShareReceipt', () => ({
+jest.mock('../utils/ShareReceipt', () => ({
   __esModule: true,
   default: jest.fn(),
 }));

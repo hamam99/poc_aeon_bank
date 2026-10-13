@@ -1,6 +1,6 @@
-import { MockTransactionRepository } from '../src/api/MockTransactionRepository';
-import { useTransactionStore } from '../src/store/useTransactionStore';
-import type { Transaction } from '../src/types/transaction';
+import { MockTransactionRepository } from '../api/MockTransactionRepository';
+import { useTransactionStore } from '../store/useTransactionStore';
+import type { Transaction } from '../types/transaction';
 
 const resetStore = () =>
   useTransactionStore.setState({

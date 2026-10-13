@@ -1,7 +1,7 @@
 module.exports = {
   preset: '@react-native/jest-preset',
   moduleNameMapper: {
-    '\\.css$': '<rootDir>/__mocks__/styleMock.js',
+    '\\.css$': '<rootDir>/src/__mocks__/styleMock.js',
   },
   // `transform` replaces the preset's map, so the asset transformer is repeated here.
   // `.mjs` is listed because ESM-only packages such as lucide-react-native resolve to

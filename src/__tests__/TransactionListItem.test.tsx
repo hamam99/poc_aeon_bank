@@ -1,8 +1,8 @@
 import { act, create, type ReactTestRenderer } from 'react-test-renderer';
 import { Text, TouchableOpacity } from 'react-native';
 
-import { TransactionListItem } from '../src/components/TransactionListItem';
-import type { Transaction } from '../src/types/transaction';
+import { TransactionListItem } from '../components/TransactionListItem';
+import type { Transaction } from '../types/transaction';
 
 const transaction: Transaction = {
   id: 'txn-1001',

@@ -1,0 +1,9 @@
+node_modules/
+vendor/
+
+# Native build output and generated files
+**/build/
+**/.cxx/
+**/.gradle/
+**/Pods/
+**/*.xcassets/
