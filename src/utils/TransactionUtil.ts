@@ -26,7 +26,9 @@ export const filterTransactions = (
       return true;
     }
 
-    return `${transaction.title} ${transaction.description ?? ''}`
+    return `${transaction.title} ${transaction.description ?? ''} ${
+      transaction.id
+    }`
       .toLowerCase()
       .includes(query);
   });

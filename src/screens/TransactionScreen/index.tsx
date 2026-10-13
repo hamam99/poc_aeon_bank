@@ -75,7 +75,7 @@ const TransactionScreen = ({ navigation }: TransactionScreenProps) => {
         <SearchField
           value={search}
           onChangeText={setSearch}
-          placeholder="Search transactions"
+          placeholder="Search transactions (title, description, ID)"
         />
       </View>
     );
